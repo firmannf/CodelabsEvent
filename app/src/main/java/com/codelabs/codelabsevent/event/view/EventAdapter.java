@@ -1,4 +1,4 @@
-package com.codelabs.codelabsevent.event;
+package com.codelabs.codelabsevent.event.view;
 
 import com.bumptech.glide.Glide;
 import com.codelabs.codelabsevent.R;
@@ -6,7 +6,6 @@ import com.codelabs.codelabsevent.network.model.Event;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,15 +20,15 @@ import butterknife.ButterKnife;
 /**
  * Created by mexanjuadha on 1/27/16.
  */
-public class CountryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final String TAG = CountryAdapter.class.getSimpleName();
+    private static final String TAG = EventAdapter.class.getSimpleName();
 
     private Context context;
 
     private List<Event> events;
 
-    public CountryAdapter(Context context, List<Event> events) {
+    public EventAdapter(Context context, List<Event> events) {
         this.context = context;
         this.events = events;
     }
@@ -52,7 +51,6 @@ public class CountryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     class CountryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
 
         @Bind(R.id.event_image)
         ImageView eventImage;

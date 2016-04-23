@@ -12,6 +12,8 @@
         style="@style/Toolbar.Text"
         android:textSize="@dimen/size_toolbar_text"
         android:singleLine="true"
+        android:gravity="center_vertical"
+        android:text="Sample"
         android:paddingLeft="@dimen/padding_left_toolbar"
         android:ellipsize="end"/>
 

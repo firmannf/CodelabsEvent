@@ -1,8 +1,8 @@
-package com.codelabs.codelabsevent.event;
-
-import com.google.gson.Gson;
+package com.codelabs.codelabsevent.event.view;
 
 import com.codelabs.codelabsevent.R;
+import com.codelabs.codelabsevent.event.EventContract;
+import com.codelabs.codelabsevent.event.presenter.EventPresenter;
 import com.codelabs.codelabsevent.network.model.Event;
 
 import android.os.Bundle;
@@ -11,7 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -25,12 +26,20 @@ public class EventActivity extends AppCompatActivity implements EventContract.Vi
 
     private static final String TAG = EventActivity.class.getSimpleName();
 
+    @Nullable
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
+    @Nullable
+    @Bind(R.id.title_toolbar)
+    TextView titleBar;
+
     @Bind(R.id.recycle_country_picker)
     RecyclerView recyclerView;
 
     private EventContract.Presenter presenter;
 
-    private CountryAdapter countryAdapter;
+    private EventAdapter countryAdapter;
 
     private LinearLayoutManager linearLayoutManager;
 
@@ -38,12 +47,30 @@ public class EventActivity extends AppCompatActivity implements EventContract.Vi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.country_picker_activity);
+        setContentView(R.layout.event_activity);
         ButterKnife.bind(this);
+        configToolbar();
         initPresenter();
         presenter.getDataEvent();
         configRecycleView();
     }
+
+    public void configToolbar() {
+        if (toolbar != null) {
+            setTitleBarToolbar(getString(R.string.event_sample));
+
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+    }
+
+    protected void setTitleBarToolbar(String title) {
+        if (toolbar != null && title != null) {
+            titleBar.setText(title);
+        }
+    }
+
 
     private void initPresenter() {
         presenter = new EventPresenter.Builder().view(this).context(this).build();
@@ -51,8 +78,7 @@ public class EventActivity extends AppCompatActivity implements EventContract.Vi
 
     @Override
     public void showEventDatatoList(List<Event> events) {
-        Log.d(TAG, "showEventDatatoList: " + events.size());
-        countryAdapter = new CountryAdapter(this, events);
+        countryAdapter = new EventAdapter(this, events);
         recyclerView.swapAdapter(countryAdapter, true);
     }
 

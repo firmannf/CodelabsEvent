@@ -1,5 +1,7 @@
-package com.codelabs.codelabsevent.event;
+package com.codelabs.codelabsevent.event.presenter;
 
+import com.codelabs.codelabsevent.event.EventContract;
+import com.codelabs.codelabsevent.event.interactor.EventInteractor;
 import com.codelabs.codelabsevent.network.handler.NetworkHandler;
 import com.codelabs.codelabsevent.network.model.Event;
 

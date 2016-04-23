@@ -1,6 +1,7 @@
-package com.codelabs.codelabsevent.event;
+package com.codelabs.codelabsevent.event.interactor;
 
 import com.codelabs.codelabsevent.base.BaseInteractor;
+import com.codelabs.codelabsevent.event.EventContract;
 import com.codelabs.codelabsevent.network.handler.GeneralNetworkHandler;
 
 import android.content.Context;
