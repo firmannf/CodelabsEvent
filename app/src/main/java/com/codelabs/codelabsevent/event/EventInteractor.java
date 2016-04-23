@@ -2,14 +2,10 @@ package com.codelabs.codelabsevent.event;
 
 import com.codelabs.codelabsevent.base.BaseInteractor;
 import com.codelabs.codelabsevent.network.handler.GeneralNetworkHandler;
-import com.codelabs.codelabsevent.network.model.Event;
 
 import android.content.Context;
 
-import java.util.List;
-
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -57,11 +53,8 @@ public class EventInteractor extends BaseInteractor implements EventContract.Int
         getCodelabsNetworkManager().requestEvent(generalNetworkHandler)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Action1<List<Event>>() {
-                @Override
-                public void call(List<Event> events) {
-                    presenter.populateDataEvent(events);
-                }
+            .subscribe(events -> {
+                presenter.populateDataEvent(events);
             });
     }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="BaseAppTheme"
+        parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="android:textColorPrimary">@color/toolbar_text_primary</item>
+    </style>
+
+    <style name="ToolbarColoredWhite" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/bg_white</item>
+        <item name="android:textColorSecondary">@color/bg_white</item>
+        <item name="android:actionMenuTextColor">@color/text_black</item>
+    </style>
+
+    <style name="AppTheme"
+        parent="BaseAppTheme"/>
+
+    <style name="MatchParent" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="WrapContent" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="FitWidth">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="FitHeightToolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+    </style>
+
+    <style name="Toolbar"
+        parent="FitHeightToolbar">
+        <item name="android:background">@color/color_primary</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <style name="Toolbar.Text"
+        parent="WrapContent">
+        <item name="android:textColor">@color/toolbar_text_primary</item>
+    </style>
+
+</resources>

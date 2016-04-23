@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    style="@style/Toolbar"
+    app:theme="@style/ToolbarColoredWhite"
+    app:popupTheme="@style/Theme.AppCompat.Light">
+
+    <TextView
+        android:id="@+id/title_toolbar"
+        style="@style/Toolbar.Text"
+        android:textSize="@dimen/size_toolbar_text"
+        android:singleLine="true"
+        android:paddingLeft="@dimen/padding_left_toolbar"
+        android:ellipsize="end"/>
+
+</android.support.v7.widget.Toolbar>
