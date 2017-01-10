@@ -5,6 +5,7 @@ import com.codelabs.codelabsevent.R;
 import com.codelabs.codelabsevent.network.model.Event;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context).inflate(
-            R.layout.item_event, parent, false);
+                R.layout.item_event, parent, false);
         return new CountryViewHolder(itemView);
     }
 
@@ -75,6 +76,8 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         @Override
         public void onClick(View v) {
+
+            context.startActivity(new Intent(context, DetailActivity.class));
         }
     }
 }
