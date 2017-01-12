@@ -1,5 +1,7 @@
 package com.icehousecorp.retrofitlogger;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.icehousecorp.retrofitlogger.tools.Preferences;
 
@@ -20,58 +22,43 @@ public class RetroInterceptor implements Interceptor {
 
     private static final String TAG = RetroInterceptor.class.getSimpleName();
 
-    private Chain chain;
+    private Response response;
 
-    private Flowable<Response> flowableResponse;
+    private ResponseInfo responseInfo;
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        this.chain = chain;
-        final Request request = chain.request();
-        flowableResponse = getChainRequest(request);
-        saveResponseToPreferences();
+        Request request = chain.request();
+        response = chain.proceed(request);
 
-        return chain.proceed(request);
+
+        responseInfo = createResponseInfo(response);
+//        saveResponseToPreferences();
+        return response;
     }
 
-    private Flowable<Response> getChainRequest(Request request) {
-        Flowable flowable;
-        try {
-            flowable = Flowable.just(chain.proceed(request));
-        } catch (IOException e) {
-            flowable = Flowable.error(e);
-        }
-        return flowable;
-    }
-
-    public Flowable<ResponseInfo> getResponseInfo() {
-        return flowableResponse.map(new Function<Response, ResponseInfo>() {
-            @Override
-            public ResponseInfo apply(Response response) throws Exception {
-                return createResponseInfo(response);
-            }
-        });
-    }
-
-    private ResponseInfo createResponseInfo(Response response) throws IOException {
+    private ResponseInfo createResponseInfo(Response response) {
         ResponseInfo responseInfo = new ResponseInfo();
-        responseInfo.setBody(response.body().string());
-        responseInfo.setHeaders(response.headers());
-        responseInfo.setRequestTime(response.sentRequestAtMillis());
-        responseInfo.setResponseTime(response.receivedResponseAtMillis());
-        responseInfo.setStatusCode(response.code());
-        responseInfo.setMethod(response.request().method());
+        try {
+            responseInfo.setHeaders(response.headers());
+            responseInfo.setRequestTime(response.sentRequestAtMillis());
+            responseInfo.setResponseTime(response.receivedResponseAtMillis());
+            responseInfo.setStatusCode(response.code());
+            responseInfo.setMethod(response.request().method());
+            responseInfo.setBody(response.body().string());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         return responseInfo;
     }
 
     private void saveResponseToPreferences() {
-        getResponseInfo().doOnNext(new Consumer<ResponseInfo>() {
-            @Override
-            public void accept(ResponseInfo responseInfo) throws Exception {
-                Preferences.getPreference().putString("a", new Gson().toJson(responseInfo));
-            }
-        });
-
+        if (responseInfo != null) {
+            Preferences.getPreference().putString("tempResponse", new Gson().toJson(responseInfo));
+        }
     }
 
 }

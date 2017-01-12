@@ -56,6 +56,6 @@ public class EventInteractor extends BaseInteractor implements EventContract.Int
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(events -> {
                 presenter.populateDataEvent(events);
-            });
+            }, throwable -> {throwable.printStackTrace();});
     }
 }

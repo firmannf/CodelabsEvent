@@ -15,8 +15,6 @@ public class CodelabsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         RetrofitLogger.getInstance().init(this);
-        Preferences.setPreference(this, "pref");
-        Preferences.getPreference().putString("tempValue", "123456");
 
     }
 }

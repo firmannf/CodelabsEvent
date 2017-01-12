@@ -64,7 +64,7 @@ public class EventActivity extends AppCompatActivity implements EventContract.Vi
         presenter.getDataEvent();
         configRecycleView();
 
-        RetrofitLogger.getInstance().getResponse();
+//        RetrofitLogger.getInstance().getResponse();
     }
 
     @Override

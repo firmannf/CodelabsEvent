@@ -1,13 +1,20 @@
 package com.icehousecorp.retrofitlogger;
 
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.icehousecorp.retrofitlogger.tools.Preferences;
+import com.icehousecorp.retrofitlogger.tools.Shaker;
 
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
 import io.reactivex.subscribers.DefaultSubscriber;
+
+import static android.content.Context.SENSOR_SERVICE;
 
 /**
  * Created by mexanjuadha on 12/28/16.
@@ -19,6 +26,7 @@ public class RetrofitLogger {
 
     private static RetrofitLogger instance;
 
+    private Context context;
 
     public RetrofitLogger() {
     }
@@ -35,31 +43,47 @@ public class RetrofitLogger {
     }
 
     public void init(Context context) {
+        this.context = context;
         Preferences.setPreference(context, "pref");
+        addListenerSensor();
     }
 
-    public void getResponse(){
-//        String respon = Preferences.getPreference().getString("a");
-//        Flowable<String> stringFlowable = Flowable.just(respon);
-//
-//        stringFlowable.subscribe(new DefaultSubscriber<String>() {
-//            @Override
-//            public void onNext(String s) {
-//                Log.e(TAG, "onNext: " + s);
-//            }
-//
-//            @Override
-//            public void onError(Throwable t) {
-//
-//            }
-//
-//            @Override
-//            public void onComplete() {
-//
-//            }
-//        });
+
+    private void addListenerSensor() {
+        new Shaker(context, 2.5d, 0, new Shaker.Callback() {
+            @Override
+            public void shakingStarted() {
+//                getResponse();
+            }
+
+            @Override
+            public void shakingStopped() {
+
+            }
+        });
     }
 
+    public void getResponse() {
+        String respon = Preferences.getPreference().getString("tempResponse");
+        Flowable<String> stringFlowable = Flowable.just(respon);
+
+        stringFlowable.subscribe(new DefaultSubscriber<String>() {
+            @Override
+            public void onNext(String s) {
+                Log.e(TAG, "Response : " + s);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
 
 
 }
